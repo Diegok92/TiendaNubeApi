@@ -3,56 +3,143 @@ const csv = require("csv-parser");
 const path = require("path");
 
 const postProducts = (req, res) => {
-  // Define los parámetros necesarios para la solicitud
   const access_token = req.query.access_token;
   const user_id = req.query.user_id;
-  const prices = [];
-  const SKUs = [];
-  const stock = [];
-  const name = [];
-  const descripcion = [];
-
+  const products = [];
   //const costo = [];
 
-  fs.createReadStream("app/assets/documents/nuevosProductos.csv") // Cambia 'input.csv' al nombre de tu archivo CSV
-    .pipe(csv({ separator: ";" })) // Asegúrate de usar el mismo delimitador que se usó al crear el CSV
+  fs.createReadStream("app/assets/documents/nuevosProductos.csv")
+    .pipe(csv({ separator: ";" }))
     .on("data", (data) => {
-      console.log(data);
+      //console.log(data);
+
+      if (
+        data.SKU &&
+        data.NAME &&
+        data.PRICE &&
+        data.STOCK &&
+        data.CATEGORIES &&
+        data.DESCRIPTION
+      ) {
+        const categories = data.CATEGORIES.split(",");
+        const categoryName = categories[0].trim();
+        const subCategories = categories
+          .slice(1)
+          .map((subCategory) => subCategory.trim());
+
+        createCategoryRecursive(categoryName, null)
+          .then((categoryId) => {
+            const categoryObjects = [{ id: categoryId }];
+
+            // Luego, creamos las subcategorías y las agregamos al array de categorías del producto
+            Promise.all(
+              subCategories.map((subcategory) =>
+                createCategory(subcategory, categoryId)
+              )
+            )
+              .then((subcategoryIds) => {
+                categoryObjects.push(...subcategoryIds.map((id) => ({ id })));
+                //console.log(categories);
+
+                products.push({
+                  name: { es: data.NAME },
+                  description: { es: data.DESCRIPTION },
+                  categories: categoryObjects,
+                  variants: [
+                    {
+                      price: data.PRICE,
+                      stock: data.STOCK,
+                      sku: data.SKU,
+                    },
+                  ],
+                });
+                if (products.length === 1) {
+                  postProductsRecursive(0);
+                }
+              })
+              .catch((error) => console.error(error));
+          })
+          .catch((error) => console.error(error));
+      }
     })
     .on("end", () => {
-      postProducts(prices[0], SKUs[0], stock[0], name[0], descripcion[0], 0);
+      if (products.length === 0) {
+        res.send("No hay productos para cargar");
+      }
     });
 
-  console.log("SKUS: " + SKUs);
+  function createCategoryRecursive(name, parentId) {
+    const endpoint = `https://api.tiendanube.com/v1/${user_id}/categories`;
 
-  function postProducts(SKU, price, stock, name, descripcion, index) {
-    const body = {};
-    body.name = name;
-    body.SKU = SKU;
-    body.descripcion = descripcion;
-    //creo segun https://tiendanube.github.io/api-documentation/resources/product
-    body.variants[0] = price;
-    body.variants[2] = stock;
+    const body = {
+      name: { es: name },
+      parent_id: parentId,
+    };
 
-    const endpoint = `https://api.tiendanube.com/v1/${user_id}/products`;
+    return new Promise((resolve, reject) => {
+      fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+        body: JSON.stringify(body),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          resolve(data.id);
+        })
+        .catch((error) => reject(error));
+    });
   }
 
-  initFetch(endpoint, body);
+  function postProductsRecursive(index) {
+    //segun https://tiendanube.github.io/api-documentation/resources/product
 
-  function initFetch(endpoint, body) {
-    fetch(endpoint, {
+    if (index < products.length) {
+      const body = products[index];
+
+      const endpoint = `https://api.tiendanube.com/v1/${user_id}/products/`;
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authentication: `bearer ${access_token}`,
+        },
+        body: JSON.stringify(body),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data); // Aquí puedes manejar la respuesta si es necesario
+          setTimeout(() => postProductsRecursive(index + 1), 2000); // Llamada recursiva con el siguiente índice
+        })
+        .catch((error) => console.error(error));
+    } else {
+      res.send("Fin carga de productos"); // Envía la respuesta cuando se hayan procesado todos los productos
+    }
+  }
+
+  function createCategory(name, parentId) {
+    const endpoint = `https://api.tiendanube.com/v1/${user_id}/categories`;
+
+    const body = {
+      name: { es: name },
+      parent_id: parentId,
+    };
+
+    return fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authentication: `bearer ${access_token}`,
+        Authorization: `Bearer ${access_token}`,
       },
       body: JSON.stringify(body),
     })
       .then((response) => response.json())
-      // .then((data) => console.log(data))
+      .then((data) => data.id)
       .catch((error) => console.error(error));
   }
-  res.send("Fin carga de productos");
 };
 
 module.exports = { postProducts };
