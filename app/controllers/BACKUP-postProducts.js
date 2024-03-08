@@ -6,7 +6,7 @@ const postProducts = (req, res) => {
   const user_id = req.query.user_id;
   const products = [];
 
-  fs.createReadStream("app/assets/documents/nuevosProductos.csv")
+  fs.createReadStream("app/assets/documents/motoVerdeProducts.csv")
     .pipe(csv({ separator: ";" }))
     .on("data", (data) => {
       if (
@@ -79,17 +79,7 @@ function postProductsRecursive(index, products, user_id, access_token, res) {
       })
       .then((data) => {
         console.log(data);
-        setTimeout(
-          () =>
-            postProductsRecursive(
-              index + 1,
-              products,
-              user_id,
-              access_token,
-              res
-            ),
-          2000
-        );
+        postProductsRecursive(index + 1, products, user_id, access_token, res);
       })
       .catch((error) => console.error(error));
   } else {

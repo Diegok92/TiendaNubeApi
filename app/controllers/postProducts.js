@@ -5,8 +5,13 @@ const postProducts = (req, res) => {
   const access_token = req.query.access_token;
   const user_id = req.query.user_id;
   const products = [];
+  let csvStartTime = null;
+  let productsStartTime = null;
 
-  fs.createReadStream("app/assets/documents/nuevosProductos.csv")
+  // Tiempo de inicio para la lectura del archivo CSV
+  csvStartTime = new Date();
+
+  fs.createReadStream("app/assets/documents/motoVerdeProducts.csv")
     .pipe(csv({ separator: ";" }))
     .on("data", (data) => {
       if (
@@ -32,11 +37,34 @@ const postProducts = (req, res) => {
       }
     })
     .on("end", () => {
-      postProductsRecursive(0, products, user_id, access_token, res);
+      // Tiempo de finalización para la lectura del archivo CSV
+      const csvEndTime = new Date();
+      const csvElapsedTime = csvEndTime - csvStartTime;
+
+      console.log(`Tiempo de lectura del archivo CSV: ${csvElapsedTime} ms`);
+
+      // Tiempo de inicio para la carga de productos
+      productsStartTime = new Date();
+
+      postProductsRecursive(
+        0,
+        products,
+        user_id,
+        access_token,
+        res,
+        productsStartTime
+      );
     });
 };
 
-function postProductsRecursive(index, products, user_id, access_token, res) {
+function postProductsRecursive(
+  index,
+  products,
+  user_id,
+  access_token,
+  res,
+  productsStartTime
+) {
   if (index < products.length) {
     const body = {
       name: { es: products[index].name },
@@ -78,21 +106,24 @@ function postProductsRecursive(index, products, user_id, access_token, res) {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        setTimeout(
-          () =>
-            postProductsRecursive(
-              index + 1,
-              products,
-              user_id,
-              access_token,
-              res
-            ),
-          2000
+        //console.log(data);
+        postProductsRecursive(
+          index + 1,
+          products,
+          user_id,
+          access_token,
+          res,
+          productsStartTime
         );
       })
       .catch((error) => console.error(error));
   } else {
+    // Tiempo de finalización para la carga de productos
+    const productsEndTime = new Date();
+    const productsElapsedTime = productsEndTime - productsStartTime;
+
+    console.log(`Tiempo de carga de productos: ${productsElapsedTime} ms`);
+
     res.send("Fin carga de productos");
   }
 }

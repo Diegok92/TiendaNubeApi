@@ -5,6 +5,7 @@ const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 const getCategories = (req, res) => {
   const access_token = req.query.access_token;
   const user_id = req.query.user_id;
+  const startTime = new Date();
 
   const endpoint = `https://api.tiendanube.com/v1/${user_id}/categories`;
 
@@ -24,8 +25,7 @@ const getCategories = (req, res) => {
       return response.json();
     })
     .then((data) => {
-      // Verifica la estructura de data
-      console.log(data);
+      //console.log(data);
 
       // Verifica si data es un array
       if (Array.isArray(data)) {
@@ -51,6 +51,9 @@ const getCategories = (req, res) => {
         csvWriter
           .writeRecords(categories)
           .then(() => {
+            const endTime = new Date();
+            const elapsedTime = endTime - startTime;
+            console.log(`Tiempo de guardado en CSV: ${elapsedTime} ms`);
             console.log("Categorías guardadas en categorias.csv");
             res.status(200).send("Categorías guardadas en categorias.csv");
           })
