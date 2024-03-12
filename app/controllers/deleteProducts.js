@@ -1,10 +1,14 @@
 const fs = require("fs");
 const csv = require("csv-parser");
 
-const deleteProducts = (req, res) => {
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const deleteProducts = async (req, res) => {
   const access_token = req.query.access_token;
   const user_id = req.query.user_id;
   const productIds = [];
+
+  console.time("Tiempo de eliminación de productos"); // Iniciar la medición del tiempo
 
   fs.createReadStream("app/assets/documents/Productos.csv")
     .pipe(csv({ separator: ";" })) // Establecer el separador como ';'
@@ -14,59 +18,52 @@ const deleteProducts = (req, res) => {
         productIds.push(data.ID);
       }
     })
-    .on("end", () => {
-      deleteProductsRecursive(0, productIds, user_id, access_token, res);
+    .on("end", async () => {
+      try {
+        await deleteProductsSequential(productIds, user_id, access_token);
+        console.timeEnd("Tiempo de eliminación de productos"); // Finalizar la medición del tiempo
+        res.send("Eliminación de productos completada");
+      } catch (error) {
+        console.error("Error al eliminar los productos:", error);
+        res.status(500).send("Error al eliminar los productos");
+      }
     });
 };
 
-function deleteProductsRecursive(
-  index,
-  productIds,
-  user_id,
-  access_token,
-  res
-) {
-  if (index < productIds.length) {
-    const productId = productIds[index];
-    const endpoint = `https://api.tiendanube.com/v1/${user_id}/products/${productId}`;
+const deleteProductsSequential = async (productIds, user_id, access_token) => {
+  for (const productId of productIds) {
+    await deleteProduct(productId, user_id, access_token);
+    await wait(1000); // Esperar 1 segundo entre cada solicitud (ajusta este valor según sea necesario)
+  }
+};
 
-    fetch(endpoint, {
+const deleteProduct = async (productId, user_id, access_token) => {
+  const endpoint = `https://api.tiendanube.com/v1/${user_id}/products/${productId}`;
+
+  try {
+    const response = await fetch(endpoint, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authentication: `bearer ${access_token}`,
       },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          console.error(
-            "Error en la solicitud:",
-            response.status,
-            response.statusText
-          );
-          return response.text().then((text) => {
-            console.error("Detalles del error:", text);
-            throw new Error(
-              `Error en la solicitud: ${response.status} - ${response.statusText}`
-            );
-          });
-        }
-        return response.json();
-      })
-      .then(() => {
-        console.log(`Producto ${productId} eliminado exitosamente`);
-        deleteProductsRecursive(
-          index + 1,
-          productIds,
-          user_id,
-          access_token,
-          res
-        );
-      })
-      .catch((error) => console.error(error));
-  } else {
-    res.send("Eliminación de productos completada");
+    });
+
+    if (!response.ok) {
+      console.error(
+        "Error en la solicitud:",
+        response.status,
+        response.statusText
+      );
+      const text = await response.text();
+      console.error("Detalles del error:", text);
+      throw new Error(
+        `Error en la solicitud: ${response.status} - ${response.statusText}`
+      );
+    }
+  } catch (error) {
+    throw new Error(`Error al eliminar el producto ${productId}: ${error}`);
   }
-}
+};
 
 module.exports = { deleteProducts };
