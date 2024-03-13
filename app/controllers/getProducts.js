@@ -1,4 +1,5 @@
 const fs = require("fs");
+
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 
 const fileExists = fs.existsSync("Productos.csv");
@@ -15,7 +16,7 @@ const csvWriter = createCsvWriter({
   fieldDelimiter: ";",
 });
 
-const getProducts = (req, res) => {
+const getProducts = async (req, res) => {
   const access_token = req.query.access_token;
   const user_id = req.query.user_id;
 
@@ -33,49 +34,47 @@ const getProducts = (req, res) => {
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        allProducts.push(...data);
-
-        if (data.length === 100) {
-          await fetchProducts(page + 1);
-        } else {
-          const json_data = [];
-          allProducts.forEach((row) => {
-            if (row.published == true) {
-              json_data.push({
-                id: row.id,
-                name: row.name.es,
-                canonical_url: row.canonical_url,
-                published: row.published,
-                price: row.variants[0].price,
-              });
-            }
-          });
-
-          // Medir el tiempo de escritura en el archivo CSV
-          console.time("Tiempo de escritura en el archivo CSV");
-
-          csvWriter
-            .writeRecords(json_data)
-            .then(() => {
-              console.timeEnd("Tiempo de escritura en el archivo CSV");
-              res.send("Productos guardados exitosamente");
-            })
-            .catch((err) => {
-              console.error(err);
-              res.status(500).send("Error al guardar los productos");
-            });
-        }
-      } else {
-        console.error(
+      if (!response.ok) {
+        throw new Error(
           `Error al obtener los productos: ${response.status} - ${response.statusText}`
         );
-        res
-          .status(response.status)
-          .send(
-            `Error al obtener los productos: ${response.status} - ${response.statusText}`
-          );
+      }
+
+      const data = await response.json();
+      allProducts.push(...data);
+
+      // Check if there are more products to fetch
+      const totalProducts = Number(response.headers.get("X-Total-Count"));
+      const totalPages = Math.ceil(totalProducts / 100);
+
+      if (page < totalPages) {
+        // Fetch next page
+        await fetchProducts(page + 1);
+      } else {
+        // All products fetched, process data
+        const filteredProducts = allProducts
+          .filter((row) => row.published)
+          .map((row) => ({
+            id: row.id,
+            name: row.name.es,
+            canonical_url: row.canonical_url,
+            published: row.published,
+            price: row.variants[0].price,
+          }));
+
+        // Medir el tiempo de escritura en el archivo CSV
+        console.time("Tiempo de escritura en el archivo CSV");
+
+        csvWriter
+          .writeRecords(filteredProducts)
+          .then(() => {
+            console.timeEnd("Tiempo de escritura en el archivo CSV");
+            res.send("Productos guardados exitosamente");
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).send("Error al guardar los productos");
+          });
       }
     } catch (error) {
       console.error("Error al obtener los productos:", error);
