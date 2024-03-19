@@ -7,6 +7,8 @@ const csvWriter = createCsvWriter({
   path: "app/assets/documents/Productos.csv",
   header: [
     { id: "id", title: "ID" },
+    { id: "sku", title: "SKU" },
+    { id: "variantId", title: "VARIANTID" },
     { id: "name", title: "NAME" },
     { id: "canonical_url", title: "CANONICAL_URL" },
     { id: "published", title: "PUBLISHED" },
@@ -56,6 +58,8 @@ const getProducts = async (req, res) => {
           .filter((row) => row.published)
           .map((row) => ({
             id: row.id,
+            sku: row.variants[0].sku,
+            variantId: row.variants[0].id,
             name: row.name.es,
             canonical_url: row.canonical_url,
             published: row.published,
