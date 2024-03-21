@@ -10,9 +10,11 @@ const csvWriter = createCsvWriter({
     { id: "sku", title: "SKU" },
     { id: "variantId", title: "VARIANTID" },
     { id: "name", title: "NAME" },
-    { id: "canonical_url", title: "CANONICAL_URL" },
-    { id: "published", title: "PUBLISHED" },
     { id: "price", title: "PRICE" },
+    { id: "stock", title: "STOCK" },
+    { id: "published", title: "PUBLISHED" },
+    { id: "canonical_url", title: "CANONICAL_URL" },
+    { id: "description", title: "DESCRIPTION" },
   ],
   append: fileExists,
   fieldDelimiter: ";",
@@ -61,9 +63,11 @@ const getProducts = async (req, res) => {
             sku: row.variants[0].sku,
             variantId: row.variants[0].id,
             name: row.name.es,
-            canonical_url: row.canonical_url,
-            published: row.published,
             price: row.variants[0].price,
+            stock: row.variants[0].stock,
+            published: row.published,
+            canonical_url: row.canonical_url,
+            description: row.description,
           }));
 
         // Medir el tiempo de escritura en el archivo CSV

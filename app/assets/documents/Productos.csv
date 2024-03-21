@@ -1,2 +1,7 @@
-ID;SKU;VARIANTID;NAME;CANONICAL_URL;PUBLISHED;PRICE
-205368360;9788483463611;856784324;Robots e Imperio - Isaac Asimov;https://diegoteststore.mitiendanube.com/productos/robots-e-imperio-isaac-asimov/;true;25.00
+ID;SKU;VARIANTID;NAME;PRICE;STOCK;PUBLISHED;CANONICAL_URL;DESCRIPTION
+205518740;9788483463611;857367760;Robots e Imperio - Isaac Asimov;250.00;1;true;https://diegoteststore.mitiendanube.com/productos/robots-e-imperio-isaac-asimov/;
+205518744;9788497599559;857367783;Robots del Amanecer - Isaac Asimov;210.00;1;true;https://diegoteststore.mitiendanube.com/productos/robots-del-amanecer-isaac-asimov/;
+205518749;9788415083085;857367806;Mit. Egipcia;150.00;1;true;https://diegoteststore.mitiendanube.com/productos/mit-egipcia/;
+205518753;Raptor;857367823;Venzo Raptor 29;5000.00;1;true;https://diegoteststore.mitiendanube.com/productos/venzo-raptor-29/;
+205518757;9788466623299;857367839;Ilion I - El Asedio;200.00;1;true;https://diegoteststore.mitiendanube.com/productos/ilion-i-el-asedio/;
+205518765;9788466627022;857367859;Ilion II - La Rebelion;200.00;1;true;https://diegoteststore.mitiendanube.com/productos/ilion-ii-la-rebelion/;

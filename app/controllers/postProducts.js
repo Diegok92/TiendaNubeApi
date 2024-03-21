@@ -11,7 +11,7 @@ const postProducts = (req, res) => {
   // Tiempo de inicio para la lectura del archivo CSV
   csvStartTime = new Date();
 
-  fs.createReadStream("app/assets/documents/nuevosProductos.csv")
+  fs.createReadStream("app/assets/documents/nuevosProductos2.csv")
     .pipe(csv({ separator: ";" }))
     .on("data", (data) => {
       if (
