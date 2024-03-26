@@ -8,7 +8,8 @@ const csvWriter = createCsvWriter({
   header: [
     { id: "id", title: "ID" },
     { id: "sku", title: "SKU" },
-    { id: "variantId", title: "VARIANTID" },
+    { id: "variant_id", title: "VARIANT_ID" },
+    { id: "categories", title: "CATEGORIES" },
     { id: "name", title: "NAME" },
     { id: "price", title: "PRICE" },
     { id: "stock", title: "STOCK" },
@@ -61,13 +62,14 @@ const getProducts = async (req, res) => {
           .map((row) => ({
             id: row.id,
             sku: row.variants[0].sku,
-            variantId: row.variants[0].id,
+            variant_id: row.variants[0].id,
             name: row.name.es,
             price: row.variants[0].price,
             stock: row.variants[0].stock,
+            categories: row.categories[0].id,
             published: row.published,
             canonical_url: row.canonical_url,
-            description: row.description,
+            description: row.description.es,
           }));
 
         // Medir el tiempo de escritura en el archivo CSV
