@@ -1,6 +1,7 @@
 const fs = require("fs");
 const csv = require("csv-parser");
 const { createObjectCsvWriter } = require("csv-writer");
+const { performance } = require("perf_hooks"); // Importa el módulo 'perf_hooks' para medir el rendimiento
 
 const updateProducts = (req, res) => {
   const access_token = req.query.access_token;
@@ -71,11 +72,13 @@ const updateProducts = (req, res) => {
 
   csvWriter.writeRecords(productosActualizados).then(() => {
     console.log(
-      "Se han actualizado los productos en actualizarInfoCompleta.csv"
+      "Se han actualizados los productos en actualizarInfoCompleta.csv"
     );
 
     const csvFilePath = actCsvFilePath;
     const csvStartTime = new Date();
+    const requestStartTime = performance.now();
+    let contadorProd = 0;
 
     fs.createReadStream(csvFilePath)
       .pipe(csv({ separator: ";" }))
@@ -92,44 +95,27 @@ const updateProducts = (req, res) => {
 
         const endpoint = `https://api.tiendanube.com/v1/${user_id}/products/${productId}/variants/${variantId}`;
 
-        fetch(endpoint, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authentication: `bearer ${access_token}`, // Aquí estaba el error, debe ser "Authorization" en lugar de "Authentication"
-          },
-          body: JSON.stringify(body),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.error(
-                "Error en la solicitud:",
-                response.status,
-                response.statusText
-              );
-              return response.text().then((text) => {
-                console.error("Detalles del error:", text);
-                throw new Error(
-                  `Error en la solicitud: ${response.status} - ${response.statusText}`
-                );
-              });
-            }
-            return response.json();
-          })
-          .then(() => {
-            console.log(`Producto ${productId} actualizado correctamente.`);
-          })
-          .catch((error) => {
+        contadorProd++;
+        updateProductRecursive(endpoint, access_token, body)
+          .then(() =>
+            console.log(`Producto ${contadorProd} actualizado correctamente.`)
+          )
+          .catch((error) =>
             console.error(
               `Error al actualizar el producto ${productId}:`,
               error
-            );
-          });
+            )
+          );
       })
-      .on("end", () => {
+      .on("end", async () => {
+        const requestEndTime = performance.now();
+        const requestElapsedTime = requestEndTime - requestStartTime;
+        console.log(
+          `Tiempo total de actualización de productos: ${requestElapsedTime} ms`
+        );
+
         const csvEndTime = new Date();
         const csvElapsedTime = csvEndTime - csvStartTime;
-
         console.log(`Tiempo de lectura del archivo CSV: ${csvElapsedTime} ms`);
 
         res
@@ -144,5 +130,32 @@ const updateProducts = (req, res) => {
       });
   });
 };
+
+async function updateProductRecursive(endpoint, access_token, body) {
+  try {
+    const response = await fetch(endpoint, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authentication: `bearer ${access_token}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Error en la solicitud: ${response.status} - ${response.statusText}`
+      );
+    }
+
+    await sleep(2000); // Pausa de 1 segundo entre solicitudes
+  } catch (error) {
+    throw error;
+  }
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 module.exports = { updateProducts };

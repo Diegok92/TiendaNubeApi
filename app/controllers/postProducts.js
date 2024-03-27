@@ -41,7 +41,9 @@ const postProducts = (req, res) => {
       const csvEndTime = new Date();
       const csvElapsedTime = csvEndTime - csvStartTime;
 
-      console.log(`Tiempo de lectura del archivo CSV: ${csvElapsedTime} ms`);
+      console.log(
+        `Tiempo de lectura del archivo nuevosProductos2.csv: ${csvElapsedTime} ms`
+      );
 
       // Tiempo de inicio para la carga de productos
       productsStartTime = new Date();
@@ -122,9 +124,11 @@ function postProductsRecursive(
     const productsEndTime = new Date();
     const productsElapsedTime = productsEndTime - productsStartTime;
 
-    console.log(`Tiempo de carga de productos: ${productsElapsedTime} ms`);
+    console.log(
+      `Tiempo de carga de productos desde nuevosProductos2.csv: ${productsElapsedTime} ms`
+    );
 
-    res.send("Fin carga de productos");
+    res.send("Fin carga de productos de nuevosProductos2.csv");
   }
 }
 

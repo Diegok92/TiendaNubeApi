@@ -73,17 +73,19 @@ const getProducts = async (req, res) => {
           }));
 
         // Medir el tiempo de escritura en el archivo CSV
-        console.time("Tiempo de escritura en el archivo CSV");
+        console.time("Tiempo de escritura Productos.csv");
 
         csvWriter
           .writeRecords(filteredProducts)
           .then(() => {
-            console.timeEnd("Tiempo de escritura en el archivo CSV");
-            res.send("Productos guardados exitosamente");
+            console.timeEnd("Tiempo de escritura Productos.csv");
+            res.send("Productos guardados exitosamente en Productos.csv");
           })
           .catch((err) => {
             console.error(err);
-            res.status(500).send("Error al guardar los productos");
+            res
+              .status(500)
+              .send("Error al guardar los productos en Productos.csv");
           });
       }
     } catch (error) {
