@@ -20,7 +20,7 @@ const readCsvFile = async (filePath) => {
   });
 };
 
-const updateProducts = async (req, res) => {
+const updatePostProducts = async (req, res) => {
   try {
     const access_token = req.query.access_token;
     const user_id = req.query.user_id;
@@ -40,6 +40,7 @@ const updateProducts = async (req, res) => {
           "app/assets/documents/nuevosProductos.csv"
         );
         const productosParaActualizar = [];
+        const productosParaSubir = []; // Para almacenar los productos a subir
 
         for (const producto of nuevosProductos) {
           const productoPublicado = productosPublicados[producto.SKU];
@@ -47,6 +48,8 @@ const updateProducts = async (req, res) => {
             producto.ID = productoPublicado.ID;
             producto.VARIANT_ID = productoPublicado.VARIANT_ID;
             productosParaActualizar.push(producto);
+          } else {
+            productosParaSubir.push(producto); // Agregar a la lista de productos a subir
           }
         }
 
@@ -67,6 +70,22 @@ const updateProducts = async (req, res) => {
         });
 
         await csvWriter.writeRecords(productosParaActualizar);
+
+        // Escribir los productos para subir en un nuevo archivo CSV
+        const csvWriterSubir = createObjectCsvWriter({
+          path: "app/assets/documents/productosParaSubir.csv",
+          header: [
+            { id: "SKU", title: "SKU" },
+            { id: "NAME", title: "NAME" },
+            { id: "PRICE", title: "PRICE" },
+            { id: "STOCK", title: "STOCK" },
+            { id: "CATEGORIES", title: "CATEGORIES" },
+            { id: "DESCRIPTION", title: "DESCRIPTION" },
+          ],
+          fieldDelimiter: ";",
+        });
+
+        await csvWriterSubir.writeRecords(productosParaSubir);
 
         // Una vez que se ha escrito el archivo actualizarInfoCompleta.csv, procedemos a actualizar los productos
         const productosActualizados = await readCsvFile(
@@ -161,4 +180,4 @@ const fetchWithRetry = async (url, options, retryDelay = 1000) => {
   return response;
 };
 
-module.exports = { updateProducts };
+module.exports = { updatePostProducts };
