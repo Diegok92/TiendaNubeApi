@@ -1,10 +1,10 @@
 const fs = require("fs");
-
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 
-const fileExists = fs.existsSync("Productos.csv");
+const csvFilePath = "app/assets/documents/Productos.csv";
+
 const csvWriter = createCsvWriter({
-  path: "app/assets/documents/Productos.csv",
+  path: csvFilePath,
   header: [
     { id: "id", title: "ID" },
     { id: "sku", title: "SKU" },
@@ -16,8 +16,8 @@ const csvWriter = createCsvWriter({
     { id: "published", title: "PUBLISHED" },
     { id: "canonical_url", title: "CANONICAL_URL" },
     { id: "description", title: "DESCRIPTION" },
+    { id: "updated_at", title: "UPDATED_AT" },
   ],
-  append: fileExists,
   fieldDelimiter: ";",
 });
 
@@ -70,15 +70,13 @@ const getProducts = async (req, res) => {
             published: row.published,
             canonical_url: row.canonical_url,
             description: row.description.es,
+            updated_at: row.updated_at,
           }));
 
-        // Medir el tiempo de escritura en el archivo CSV
-        console.time("Tiempo de escritura Productos.csv");
-
+        // Append records to existing file, creating the file if it doesn't exist
         csvWriter
-          .writeRecords(filteredProducts)
+          .writeRecords(filteredProducts, { append: true })
           .then(() => {
-            console.timeEnd("Tiempo de escritura Productos.csv");
             res.send("Productos guardados exitosamente en Productos.csv");
           })
           .catch((err) => {

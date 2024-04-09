@@ -11,7 +11,7 @@ const postProducts = (req, res) => {
   // Tiempo de inicio para la lectura del archivo CSV
   csvStartTime = new Date();
 
-  fs.createReadStream("app/assets/documents/nuevosProductos2.csv")
+  fs.createReadStream("app/assets/documents/productosParaSubir.csv")
     .pipe(csv({ separator: ";" }))
     .on("data", (data) => {
       if (
@@ -42,7 +42,7 @@ const postProducts = (req, res) => {
       const csvElapsedTime = csvEndTime - csvStartTime;
 
       console.log(
-        `Tiempo de lectura del archivo nuevosProductos2.csv: ${csvElapsedTime} ms`
+        `Tiempo de lectura del archivo productosParaSubir.csv: ${csvElapsedTime} ms`
       );
 
       // Tiempo de inicio para la carga de productos
@@ -125,10 +125,38 @@ function postProductsRecursive(
     const productsElapsedTime = productsEndTime - productsStartTime;
 
     console.log(
-      `Tiempo de carga de productos desde nuevosProductos2.csv: ${productsElapsedTime} ms`
+      `Tiempo de carga de productos desde productosParaSubir.csv: ${productsElapsedTime} ms`
     );
 
-    res.send("Fin carga de productos de nuevosProductos2.csv");
+    // Borra el contenido del archivo a partir de la segunda línea
+    fs.readFile(
+      "app/assets/documents/productosParaSubir.csv",
+      "utf8",
+      (err, data) => {
+        if (err) {
+          console.error("Error al leer el archivo:", err);
+          return;
+        }
+
+        const lines = data.split("\n");
+        const header = lines[0];
+        fs.writeFile(
+          "app/assets/documents/productosParaSubir.csv",
+          header,
+          (err) => {
+            if (err) {
+              console.error("Error al escribir en el archivo:", err);
+              return;
+            }
+            console.log(
+              "Contenido del archivo borrado después de la primera línea."
+            );
+          }
+        );
+      }
+    );
+
+    res.send("Fin carga de productos de productosParaSubir.csv");
   }
 }
 
