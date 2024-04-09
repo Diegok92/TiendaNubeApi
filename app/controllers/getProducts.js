@@ -12,6 +12,7 @@ const csvWriter = createCsvWriter({
     { id: "categories", title: "CATEGORIES" },
     { id: "name", title: "NAME" },
     { id: "price", title: "PRICE" },
+    { id: "promotional_price", title: "PROMOTIONAL_PRICE" },
     { id: "stock", title: "STOCK" },
     { id: "published", title: "PUBLISHED" },
     { id: "canonical_url", title: "CANONICAL_URL" },
@@ -65,6 +66,7 @@ const getProducts = async (req, res) => {
             variant_id: row.variants[0].id,
             name: row.name.es,
             price: row.variants[0].price,
+            promotional_price: row.variants[0].promotional_price,
             stock: row.variants[0].stock,
             categories: row.categories[0].id,
             published: row.published,
@@ -73,18 +75,50 @@ const getProducts = async (req, res) => {
             updated_at: row.updated_at,
           }));
 
-        // Append records to existing file, creating the file if it doesn't exist
-        csvWriter
-          .writeRecords(filteredProducts, { append: true })
-          .then(() => {
+        // Read the first line of the file
+        let firstLine = "";
+        try {
+          const fileData = fs.readFileSync(csvFilePath, "utf8");
+          const lines = fileData.split("\n");
+          if (lines.length > 0) {
+            firstLine = lines[0].trim();
+          }
+        } catch (readError) {
+          console.error("Error al leer el archivo:", readError);
+        }
+
+        // Truncate the file before writing new records
+        fs.truncate(csvFilePath, 0, async (truncateError) => {
+          if (truncateError) {
+            console.error("Error al truncar el archivo:", truncateError);
+            return res
+              .status(500)
+              .send("Error al truncar el archivo Productos.csv");
+          }
+
+          // Write first line
+          if (firstLine) {
+            try {
+              await fs.promises.appendFile(csvFilePath, firstLine + "\n");
+            } catch (appendError) {
+              console.error("Error al escribir la primera línea:", appendError);
+              return res
+                .status(500)
+                .send("Error al escribir la primera línea en Productos.csv");
+            }
+          }
+
+          // Write new records to the file
+          try {
+            await csvWriter.writeRecords(filteredProducts, { append: true });
             res.send("Productos guardados exitosamente en Productos.csv");
-          })
-          .catch((err) => {
-            console.error(err);
+          } catch (writeError) {
+            console.error("Error al guardar los productos:", writeError);
             res
               .status(500)
               .send("Error al guardar los productos en Productos.csv");
-          });
+          }
+        });
       }
     } catch (error) {
       console.error("Error al obtener los productos:", error);

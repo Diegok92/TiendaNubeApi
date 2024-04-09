@@ -63,6 +63,7 @@ const updatePostProducts = async (req, res) => {
             { id: "CATEGORIES", title: "CATEGORIES" },
             { id: "NAME", title: "NAME" },
             { id: "PRICE", title: "PRICE" },
+            { id: "PROMOTIONAL_PRICE", title: "PROMOTIONAL_PRICE" },
             { id: "STOCK", title: "STOCK" },
             { id: "DESCRIPTION", title: "DESCRIPTION" },
           ],
@@ -78,6 +79,7 @@ const updatePostProducts = async (req, res) => {
             { id: "SKU", title: "SKU" },
             { id: "NAME", title: "NAME" },
             { id: "PRICE", title: "PRICE" },
+            { id: "PROMOTIONAL_PRICE", title: "PROMOTIONAL_PRICE" },
             { id: "STOCK", title: "STOCK" },
             { id: "CATEGORIES", title: "CATEGORIES" },
             { id: "DESCRIPTION", title: "DESCRIPTION" },
@@ -100,10 +102,14 @@ const updatePostProducts = async (req, res) => {
           const productId = producto.ID;
           const variantId = producto.VARIANT_ID;
           const updatedPrice = parseFloat(producto.PRICE);
+          const updatedPromotional_Price = parseFloat(
+            producto.PROMOTIONAL_PRICE
+          );
           const updatedStock = parseInt(producto.STOCK);
 
           const body = {
             price: updatedPrice,
+            promotional_price: updatedPromotional_Price,
             stock: updatedStock,
           };
 
@@ -145,6 +151,24 @@ const updatePostProducts = async (req, res) => {
         const csvElapsedTime = csvEndTime - csvStartTime;
 
         console.log(`Tiempo de lectura del archivo CSV: ${csvElapsedTime} ms`);
+
+        // Eliminar el contenido del archivo actualizarInfoCompleta.csv
+        fs.writeFile(
+          "app/assets/documents/actualizarInfoCompleta.csv",
+          "",
+          (error) => {
+            if (error) {
+              console.error(
+                "Error al eliminar el contenido del archivo:",
+                error
+              );
+            } else {
+              console.log(
+                "El contenido del archivo actualizarInfoCompleta.csv se ha eliminado correctamente."
+              );
+            }
+          }
+        );
 
         res
           .status(200)

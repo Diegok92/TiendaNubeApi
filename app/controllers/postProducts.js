@@ -18,6 +18,7 @@ const postProducts = (req, res) => {
         data.SKU &&
         data.NAME &&
         data.PRICE &&
+        data.PROMOTIONAL_PRICE &&
         data.STOCK &&
         data.CATEGORIES &&
         data.DESCRIPTION
@@ -30,6 +31,7 @@ const postProducts = (req, res) => {
           sku: data.SKU,
           name: data.NAME,
           price: parseFloat(data.PRICE),
+          promotional_price: parseFloat(data.PROMOTIONAL_PRICE),
           stock: parseInt(data.STOCK),
           description: data.DESCRIPTION,
           categories: categories,
@@ -75,6 +77,7 @@ function postProductsRecursive(
       variants: [
         {
           price: products[index].price,
+          promotional_price: products[index].promotional_price,
           stock: products[index].stock,
           sku: products[index].sku,
         },
