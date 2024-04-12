@@ -9,6 +9,7 @@ const csvWriter = createCsvWriter({
   path: variantsCsvFilePath,
   header: [
     { id: "product_id", title: "PRODUCT_ID" },
+    { id: "sku", title: "SKU" },
     { id: "variant_id", title: "VARIANT_ID" },
     { id: "price", title: "PRICE" },
     { id: "promotional_price", title: "PROMOTIONAL_PRICE" },
@@ -52,6 +53,7 @@ const getVariants = async (req, res) => {
 
       const variantRecords = variants.map((variant) => ({
         product_id: variant.product_id,
+        sku: variant.sku,
         variant_id: variant.id,
         price: variant.price,
         promotional_price: variant.promotional_price,
