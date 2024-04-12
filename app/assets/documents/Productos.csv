@@ -1,10 +1,108 @@
-ID;SKU;VARIANT_ID;CATEGORIES;NAME;PRICE;PROMOTIONAL_PRICE;STOCK;PUBLISHED;CANONICAL_URL;DESCRIPTION;UPDATED_AT
-208058459;2;868983041;23566647;VISOR AXXIS MT-V-24 MAX VISION CLEAR;1111.00;1111.00;1;true;https://diegoteststore.mitiendanube.com/productos/visor-axxis-mt-v-24-max-vision-clear/;Prueba 124;2024-04-09T22:43:16+0000
-208058462;3;868983047;23566647;ALFORJA P/ BICI;8519.00;1111.00;1;true;https://diegoteststore.mitiendanube.com/productos/alforja-p-bici/;Prueba 125;2024-04-09T22:43:16+0000
-208058465;4;868983052;23566647;CASCO MAC BEAT MUSE MATT BLACK RED S;49630.00;1111.00;1;true;https://diegoteststore.mitiendanube.com/productos/casco-mac-beat-muse-matt-black-red-s/;Prueba 126;2024-04-09T22:43:22+0000
-208058468;5;868983055;23566647;ALFORJA CUERINA;3111.00;1111.00;1;true;https://diegoteststore.mitiendanube.com/productos/alforja-cuerina/;Prueba 127;2024-04-09T22:43:22+0000
-208058473;6;868983061;23566647;ALFORJA CUERO RENEGADE;38128.00;1111.00;1;true;https://diegoteststore.mitiendanube.com/productos/alforja-cuero-renegade/;Prueba 128;2024-04-09T22:43:22+0000
-208058481;7;868983072;23566647;ALFORJA CUSTOM;26925.00;1111.00;1;true;https://diegoteststore.mitiendanube.com/productos/alforja-custom/;Prueba 129;2024-04-09T22:43:22+0000
-208058484;8;868983091;23566647;ALFORJA CUSTOM GOMA ROUTE 66 BOLSILLO;37202.00;1111.00;1;true;https://diegoteststore.mitiendanube.com/productos/alforja-custom-goma-route-66-bolsillo/;Prueba 130;2024-04-09T22:43:22+0000
-208058486;9;868983098;23566647;ALFORJAS LATERALES 100% IMPERMEBLE ART 001;61455.00;1111.00;1;true;https://diegoteststore.mitiendanube.com/productos/alforjas-laterales-100-impermeble-art-001/;Prueba 131;2024-04-09T22:43:22+0000
-208058489;10;868983105;23566647;TAPA PIÑON H. XR 250 JP PLASTICA MXR;22055.00;500.00;10;true;https://diegoteststore.mitiendanube.com/productos/tapa-pinon-h-xr-250-jp-plastica-mxr/;Prueba 132;2024-04-09T22:28:26+0000
+ID;SKU;VARIANT_ID;CATEGORIES;NAME;PRICE;PROMOTIONAL_PRICE;STOCK;PUBLISHED;CANONICAL_URL;UPDATED_AT
+52307118;17495;142114114;5653700;Baúl Givi Mulebox 43l;252775.00;;;true;https://www.mvurbano.com.ar/productos/baul-givi-mulebox-43l/;2024-04-11T18:52:03+0000
+52480323;22;142698987;5653700;Baul Givi Easybox E20N;191496.00;;;true;https://www.mvurbano.com.ar/productos/baul-givi-easybox-e20n/;2024-04-11T18:52:03+0000
+55019258;14167;150741084;5653700;Baul Givi E30n;110477.00;;;true;https://www.mvurbano.com.ar/productos/baul-givi-e30n/;2024-04-11T18:52:03+0000
+101088091;19931;387544511;11163785;Bota Touring Alter Urban;84800.00;;1;true;https://www.mvurbano.com.ar/productos/bota-touring-alter-urban/;2024-04-11T18:52:03+0000
+101088561;20525;387546654;11163785;Bota Touring Alter Neo;89600.00;;;true;https://www.mvurbano.com.ar/productos/bota-touring-alter-neo/;2024-04-11T18:52:03+0000
+101159501;20744;387867143;5653700;Luz Led Recargable Van Halen Van003;30890.00;;4;true;https://www.mvurbano.com.ar/productos/luz-led-recargable-van-halen-van003/;2024-04-11T18:52:03+0000
+101159710;20723;387867937;5653700;Luz Led Recargable Van Halen Van805 Delantera;37664.00;;6;true;https://www.mvurbano.com.ar/productos/luz-led-recargable-van-halen-van805-delantera/;2024-04-11T18:52:03+0000
+101159832;20719;387868536;5653700;Luz Led Recargable Van Halen Van043 Delantera;51464.00;;1;true;https://www.mvurbano.com.ar/productos/luz-led-recargable-van-halen-van043-delantera/;2024-04-11T18:52:03+0000
+101160495;20750;387871826;5653700;Juego De Luces Automaticas Van Halen Van804 Recargable/a Pila;40445.00;;1;true;https://www.mvurbano.com.ar/productos/juego-de-luces-automaticas-van-halen-van804-recargable-a-pila/;2024-04-11T18:52:03+0000
+101456053;20717;389194268;5653700;Luz Led Recargable Van Halen Van035;21155.00;;5;true;https://www.mvurbano.com.ar/productos/luz-led-recargable-van-halen-van035/;2024-04-11T18:52:04+0000
+101457475;20729;389199392;5653700;Luz Led Recargable Van Halen Van049;30200.00;;4;true;https://www.mvurbano.com.ar/productos/luz-led-recargable-van-halen-van049/;2024-04-11T18:52:04+0000
+101459224;20728;389204777;5653700;Luz Led Recargable Van Halen Van048;32716.00;;4;true;https://www.mvurbano.com.ar/productos/luz-led-recargable-van-halen-van048/;2024-04-11T18:52:04+0000
+101465758;20735;389225350;5653700;Luz Led Recargable Para Casco Van Halen Van803;33140.00;;1;true;https://www.mvurbano.com.ar/productos/luz-led-recargable-para-casco-van-halen-van803/;2024-04-11T18:52:04+0000
+101467946;20715;389232221;5653700;Luz Led Recargable Van Halen Van008;17782.00;;;true;https://www.mvurbano.com.ar/productos/luz-led-recargable-van-halen-van008/;2024-04-11T18:52:04+0000
+101767074;20776;389982947;5653700;Puños Eronómicos Van Halen Van205;24151.00;;7;true;https://www.mvurbano.com.ar/productos/punos-eronomicos-van-halen-van205/;2024-04-11T18:52:04+0000
+101767285;20775;389983749;5653700;Puños Ergonómicos Van Halen Van201;13468.00;;;true;https://www.mvurbano.com.ar/productos/punos-ergonomicos-van-halen-van201/;2024-04-11T18:52:04+0000
+101767839;19703;389986081;5653700;Puños Ergonómicos Van Halen Van200;8795.00;;8;true;https://www.mvurbano.com.ar/productos/punos-ergonomicos-van-halen-van200/;2024-04-11T18:52:04+0000
+102347226;9832;392786957;5653700;Traba U Exocet GTR400;44935.00;;;true;https://www.mvurbano.com.ar/productos/traba-u-exocet-gtr400/;2024-04-11T18:52:04+0000
+102359010;9833;392829175;5653700;Traba U Exocet STD400;39062.00;;;true;https://www.mvurbano.com.ar/productos/traba-u-exocet-std400/;2024-04-11T18:52:04+0000
+102370075;18103;392863876;5653700;Cadena Exocet CH50 6mm;14280.00;;5;true;https://www.mvurbano.com.ar/productos/cadena-exocet-ch50-6mm/;2024-04-11T18:52:04+0000
+102370998;19314;392867429;5653700;Cadena Exocet CH50 6mm Con Combinacion;18957.00;;2;true;https://www.mvurbano.com.ar/productos/cadena-exocet-ch50-6mm-con-combinacion/;2024-04-11T18:52:04+0000
+102372286;9773;392872962;5653700;Cadena Exocet CH200 8mm;23367.00;;3;true;https://www.mvurbano.com.ar/productos/cadena-exocet-ch200-8mm/;2024-04-11T18:52:04+0000
+102372816;21100;392875718;5653700;Cadena Exocet CH400 10mm;29032.00;;;true;https://www.mvurbano.com.ar/productos/cadena-exocet-ch400-10mm/;2024-04-11T18:52:04+0000
+102607312;17905;393660554;5664404;Casco Vertigo Vx Verde Mate;28476.00;;;true;https://www.mvurbano.com.ar/productos/casco-vertigo-vx-verde-mate/;2024-04-11T18:52:04+0000
+102672775;17946;393872525;5664404;Casco Vertigo Vx Blanco Mate;28476.00;;;true;https://www.mvurbano.com.ar/productos/casco-vertigo-vx-blanco-mate/;2024-04-11T18:52:04+0000
+102673433;17945;393873952;5664404;Casco Vertigo Vx Negro Mate;28476.00;;;true;https://www.mvurbano.com.ar/productos/casco-vertigo-vx-negro-mate/;2024-04-11T18:52:04+0000
+102673532;17944;393874706;5664404;Casco Vertigo Vx Negro Brillante;28476.00;;;true;https://www.mvurbano.com.ar/productos/casco-vertigo-vx-negro-brillante/;2024-04-11T18:52:04+0000
+110302475;20367;422272483;5664404;Casco Vertigo Summer Acero;32299.00;;1;true;https://www.mvurbano.com.ar/productos/casco-vertigo-summer-acero/;2024-04-11T18:52:04+0000
+110302680;20359;422273695;5664404;Casco Vertigo Summer Beige;32299.00;;1;true;https://www.mvurbano.com.ar/productos/casco-vertigo-summer-beige/;2024-04-11T18:52:04+0000
+110302763;30361;422274237;5664404;Casco Vertigo Summer Celeste;2957.00;;2;true;https://www.mvurbano.com.ar/productos/casco-vertigo-summer-celeste/;2024-04-11T18:52:04+0000
+110302836;20369;422274574;5664404;Casco Vertigo Summer Naranja;32299.00;;2;true;https://www.mvurbano.com.ar/productos/casco-vertigo-summer-naranja/;2024-04-11T18:52:04+0000
+110302984;20373;422274962;5664404;Casco Vertigo Summer Turquesa;32299.00;;2;true;https://www.mvurbano.com.ar/productos/casco-vertigo-summer-turquesa/;2024-04-11T18:52:04+0000
+110303224;17905;422275504;5664404;Casco Vertigo Summer Verde;28476.00;;2;true;https://www.mvurbano.com.ar/productos/casco-vertigo-summer-verde/;2024-04-11T18:52:04+0000
+117655995;20543;453625277;11163785;Calza Acerbis Corta Con Proteccion Negra;39490.00;;3;true;https://www.mvurbano.com.ar/productos/calza-acerbis-corta-con-proteccion-negra/;2024-04-11T18:52:04+0000
+118137612;17050;455796588;5653700;Traba U Onguard Brute 8000 + Soporte;70329.00;;1;true;https://www.mvurbano.com.ar/productos/traba-u-onguard-brute-8000-soporte/;2024-04-11T18:52:04+0000
+118157657;5575;455896741;11163785;Campera Para Lluvia Givi Calama Impermeable;274533.00;;;true;https://www.mvurbano.com.ar/productos/campera-para-lluvia-givi-calama-impermeable/;2024-04-11T18:52:04+0000
+118841908;19697;460031740;5653700;Soporte Celular Benguo Bici Moto Aluminio;24389.00;;10;true;https://www.mvurbano.com.ar/productos/soporte-celular-benguo-bici-moto-aluminio/;2024-04-11T18:52:04+0000
+119710785;20769;464418464;5653700;Porta Celular Moto Hybridcity Phbig Alumin P/espejo;24266.00;;;true;https://www.mvurbano.com.ar/productos/porta-celular-moto-hybridcity-phbig-alumin-p-espejo/;2024-04-11T18:52:05+0000
+120122624;18525;466194522;11163785;Guantes City Con Proteccion;35864.00;;;true;https://www.mvurbano.com.ar/productos/guantes-city-con-proteccion/;2024-04-11T18:52:05+0000
+121203138;20525;493393880;11163785;Bota Touring Alter Trip;89600.00;;1;true;https://www.mvurbano.com.ar/productos/bota-touring-alter-trip/;2024-04-11T18:52:05+0000
+121204142;20893;470919767;11163785;Bota Touring Alter Fluence;92800.00;;1;true;https://www.mvurbano.com.ar/productos/bota-touring-alter-fluence/;2024-04-11T18:52:05+0000
+121360032;19995;471573968;5664404;Casco Abierto Axxis Mirage SV Solid;189305.00;;;true;https://www.mvurbano.com.ar/productos/casco-abierto-axxis-mirage-sv-solid/;2024-04-11T18:52:05+0000
+122377205;16156;476468835;11163785;Mascara Balaclava Termica Frio Extremo;10810.00;;;true;https://www.mvurbano.com.ar/productos/mascara-balaclava-termica-frio-extremo/;2024-04-11T18:52:05+0000
+122976087;48724;866741192;11163785;Botas De Motocross Y Enduro Combat kid Pro Tork talle 34;201344.00;;;true;https://www.mvurbano.com.ar/productos/botas-de-motocross-y-enduro-combat-kid-pro-tork-talle-34/;2024-04-11T18:52:05+0000
+124206970;17624;484125645;5653700;Calienta Puños Calefeccionados 4 Niveles;53112.00;;10;true;https://www.mvurbano.com.ar/productos/calienta-punos-calefeccionados-4-niveles/;2024-04-11T18:52:05+0000
+125265093;17558;488366377;11163785;Equipo De Lluvia Pantaneiro;35108.00;;;true;https://www.mvurbano.com.ar/productos/equipo-de-lluvia-pantaneiro/;2024-04-11T18:52:05+0000
+126278739;20839;492718534;5653700;Baules Laterales Givi Monokey E21N;254095.00;;;true;https://www.mvurbano.com.ar/productos/baules-laterales-givi-21-litros-monokey-e21n/;2024-04-11T18:52:05+0000
+126289630;05625;492768706;5653700;Llavero nautico motoquero Vs motivos;2314.00;;20;true;https://www.mvurbano.com.ar/productos/llavero-nautico-motoquero-vs-motivos/;2024-04-11T18:52:05+0000
+126433072;14159;493370140;;Casco Para Bicicleta Bell Azul Y Negro;61348.00;;1;true;https://www.mvurbano.com.ar/productos/casco-para-bicicleta-bell-azul-y-negro/;2024-04-11T18:52:05+0000
+126438339;2693;493387468;5653700;Visor De Casco Hawk RS9 Transparente;14453.00;;1;true;https://www.mvurbano.com.ar/productos/visor-de-casco-hawk-rs9-transparente/;2024-04-11T18:52:05+0000
+126445290;20925;493410290;5653700;Kidzamo KZ190 Casco Infantiles Bicicleta 50-54 Protecciones;36001.00;;1;true;https://www.mvurbano.com.ar/productos/kidzamo-kz190-casco-infantiles-bicicleta-50-54-protecciones/;2024-04-11T18:52:05+0000
+127316419;20940;510667231;11163785;Botas Moto Trends Para Moto;49800.00;;;true;https://www.mvurbano.com.ar/productos/botas-moto-trends-para-moto/;2024-04-11T18:52:05+0000
+127996459;20867;500156226;11163785;Chaleco Rompeviento Ciclismo Ultraligero Azul;43538.00;;1;true;https://www.mvurbano.com.ar/productos/chaleco-rompeviento-ciclismo-ultraligero-azul/;2024-04-11T18:52:05+0000
+127996547;20866;500157214;11163785;Chaleco Rompeviento Ciclismo Ultraligero Gris;43538.00;;1;true;https://www.mvurbano.com.ar/productos/chaleco-rompeviento-ciclismo-ultraligero-gris/;2024-04-11T18:52:05+0000
+127997029;20868;500159324;11163785;Chaleco Rompeviento Ciclismo Ultraligero Gris (copia);43538.00;;1;true;https://www.mvurbano.com.ar/productos/chaleco-rompeviento-ciclismo-ultraligero-gris-copia/;2024-04-11T18:52:05+0000
+127997040;20868;500161884;11163785;Chaleco Rompeviento Ciclismo Ultraligero Verde Agua;43538.00;;1;true;https://www.mvurbano.com.ar/productos/chaleco-rompeviento-ciclismo-ultraligero-verde-agua/;2024-04-11T18:52:05+0000
+128759194;19828;503472124;;Bicicleta Sbk Metro Rodado 20;324086.00;;1;true;https://www.mvurbano.com.ar/productos/bicicleta-sbk-metro-rodado-20/;2024-04-11T18:52:05+0000
+130735926;18312;512187513;5653700;Caja Para Delivery Super;27949.00;;1;true;https://www.mvurbano.com.ar/productos/caja-para-delivery-super-color-negra-c-1-estante-41x41x41/;2024-04-11T18:52:05+0000
+130806359;18433;512512522;5653700;Baul Porta Objetos Modelo Vam30;49021.00;;;true;https://www.mvurbano.com.ar/productos/baul-porta-objetos-mod-vam30/;2024-04-11T18:52:05+0000
+130806428;16276;512512827;5653700;Baul Porta Objetos Modelo Vam30 (Negro);41735.00;;1;true;https://www.mvurbano.com.ar/productos/baul-porta-objetos-mod-vam30-negro/;2024-04-11T18:52:05+0000
+130806629;18299;512513530;5653700;Baul Para Dos Cascos Elegant45;47123.00;;;true;https://www.mvurbano.com.ar/productos/baul-para-dos-cascos-mod-elegant45/;2024-04-11T18:52:05+0000
+130806772;26;512513962;5653700;Baul Para Dos Cascos Vam45 Negro;62652.00;;;true;https://www.mvurbano.com.ar/productos/baul-para-dos-cascos-vam45-negro/;2024-04-11T18:52:05+0000
+130806952;18314;512514768;5653700;Baul Para Dos Cascos Mod. Vam45 Blanco;56931.00;;1;true;https://www.mvurbano.com.ar/productos/baul-para-dos-cascos-mod-vam45-blanco/;2024-04-11T18:52:07+0000
+130807289;18432;512515885;5653700;Baul Porta Objetos 36 Litros Para Moto Universal Con Soporte;30996.00;;;true;https://www.mvurbano.com.ar/productos/baul-porta-objetos-36-litros-para-moto-universal-con-soporte/;2024-04-11T18:52:05+0000
+130942735;19554;513014741;11163785;Traje De Lluvia Para Mujer Proter;72853.00;;1;true;https://www.mvurbano.com.ar/productos/traje-de-lluvia-para-mujer-proter/;2024-04-11T18:52:05+0000
+131576065;20970;515691411;5653700;Antiparras Enduro Motocross;15429.00;;;true;https://www.mvurbano.com.ar/productos/antiparras-enduro-motocross/;2024-04-11T18:52:05+0000
+131578258;13044;515698375;5653700;Sunchos Lingas Para Moto Cuatri Trailer Pro Mx;42431.00;;4;true;https://www.mvurbano.com.ar/productos/sunchos-lingas-para-moto-cuatri-trailer-pro-mx/;2024-04-11T18:52:05+0000
+131587797;48709;515729344;11163785;Campera Stav All Seasons Protection;229543.00;;1;true;https://www.mvurbano.com.ar/productos/campera-stav-all-seasons-protection/;2024-04-11T18:52:05+0000
+131591785;21042;515744653;11163785;Campera Moto Stav Core Protection Abrassion Control;179046.00;;1;true;https://www.mvurbano.com.ar/productos/campera-moto-stav-core-protection-abrassion-control/;2024-04-11T18:52:05+0000
+131594576;38972;515756244;11163785;Campera Stav Base Prot. Abrasion Control;117222.00;;1;true;https://www.mvurbano.com.ar/productos/campera-stav-base-prot-abrasion-control/;2024-04-11T18:52:05+0000
+131596833;39100;515762755;11163785;Pantalón Stav Core Protection;176703.00;;1;true;https://www.mvurbano.com.ar/productos/pantalon-stav-core-protection/;2024-04-11T18:52:05+0000
+131696213;29908;516164596;5653700;Pechera Pro Tork Motocross Enduro;86124.00;;;true;https://www.mvurbano.com.ar/productos/pechera-pro-tork-motocross-enduro/;2024-04-11T18:52:05+0000
+133097579;21063;520782483;5664404;Casco Integral Moto Mt Stinger Hummer Stark Lycan C1;173931.00;;1;true;https://www.mvurbano.com.ar/productos/casco-integral-moto-mt-stinger-hummer-stark-lycan-c1/;2024-04-11T18:52:06+0000
+133099687;21063;520790530;5664404;Casco Moto Mt Stinger Hummer Solid A1 Integral Negro Mate;173931.00;;1;true;https://www.mvurbano.com.ar/productos/casco-moto-mt-stinger-hummer-solid-a1-integral-negro-mate/;2024-04-11T18:52:06+0000
+133100016;21063;560423220;5664404;Casco Integral Moto Mt Stinger Hummer Stark Lycan Talle XL;173931.00;;1;true;https://www.mvurbano.com.ar/productos/casco-integral-moto-mt-stinger-hummer-stark-lycan-talle-xl/;2024-04-11T18:52:06+0000
+133100465;47662;520795513;5664404;Casco Moto Mt Stinger Hummer Quality A5 Integral Rojo Brillo;150590.00;;;true;https://www.mvurbano.com.ar/productos/casco-moto-mt-stinger-hummer-quality-a5-integral-rojo-brillo/;2024-04-11T18:52:06+0000
+142291411;20127;551431517;5664404;Casco Moto HJC CS-15 Blanco Solido Brillo Integral;219706.00;;1;true;https://www.mvurbano.com.ar/productos/casco-moto-hjc-cs-15-blanco-solido-brillo-integral/;2024-04-11T18:52:06+0000
+142291421;21166;551431527;5664404;Casco Moto HJC CS-15 Negro Solido Brillo Integral;219706.00;;1;true;https://www.mvurbano.com.ar/productos/casco-moto-hjc-cs-15-negro-solido-brillo-integral/;2024-04-11T18:52:06+0000
+142431853;20470;552026962;11163785;Guantes Ciclismo Gym Cross Roads Medio Dedo;18634.00;;1;true;https://www.mvurbano.com.ar/productos/guantes-ciclismo-gym-cross-roads-medio-dedo/;2024-04-11T18:52:06+0000
+145454404;21243;560435184;5664404;Casco Rebatible LS2 Easy 370 Rebatible Negro Brillante;246960.00;;1;true;https://www.mvurbano.com.ar/productos/casco-rebatible-ls2-easy-370-rebatible-negro-brillante/;2024-04-11T18:52:06+0000
+145454742;42474;560435933;5664404;Casco Integral LS2 352 Rookie Chaser Negro;125964.00;;1;true;https://www.mvurbano.com.ar/productos/casco-integral-ls2-352-rookie-chaser-negro/;2024-04-11T18:52:06+0000
+150384212;21291;573501567;5664404;Casco LS2 Abierto 562 Airflow Metropolis;156960.00;;1;true;https://www.mvurbano.com.ar/productos/casco-ls2-abierto-562-airflow-metropolis/;2024-04-11T18:52:06+0000
+150391757;20222;573512661;5664404;Casco Moto LS2 562 Airflow Condor Blanco Negro Rojo;156960.00;;1;true;https://www.mvurbano.com.ar/productos/casco-moto-ls2-562-airflow-condor-blanco-negro-rojo/;2024-04-11T18:52:06+0000
+150411443;21295;573551916;5664404;Casco Abierto LS2 599 Spitfire Mono Mat Black;199728.00;;1;true;https://www.mvurbano.com.ar/productos/casco-abierto-ls2-599-spitfire-mono-mat-black/;2024-04-11T18:52:06+0000
+150419368;21298;573568830;5664404;Casco LS2 320 Integral Doble Visor Negro Mate;195205.00;;1;true;https://www.mvurbano.com.ar/productos/casco-ls2-320-integral-doble-visor-negro-mate/;2024-04-11T18:52:06+0000
+150420543;21243;573571154;5664404;Casco LS2 370 Rebatible Doble Visor Negro Y Rojo Mate;246960.00;;1;true;https://www.mvurbano.com.ar/productos/casco-ls2-370-rebatible-doble-visor-negro-y-rojo-mate/;2024-04-11T18:52:06+0000
+150637576;21908;574010523;5664404;Casco Integral Doble Visor Nolan N60-6 Anchor Con Pinlock;341882.00;;1;true;https://www.mvurbano.com.ar/productos/casco-integral-doble-visor-nolan-n60-6-anchor-con-pinlock/;2024-04-11T18:52:06+0000
+150642003;21901;574020586;5664404;Casco Integral Doble Visor Nolan N60-6 Downshift Con Pinlock;341882.00;;;true;https://www.mvurbano.com.ar/productos/casco-integral-doble-visor-nolan-n60-6-downshift-con-pinlock/;2024-04-11T18:52:06+0000
+150644533;21903;574024725;5664404;Casco Integral Doble Visor Nolan N60-6 Negro Mate;341882.00;;1;true;https://www.mvurbano.com.ar/productos/casco-integral-doble-visor-nolan-n60-6-negro-mate/;2024-04-11T18:52:06+0000
+150658984;21282;574051289;11163785;Campera Fourstroke Wanderlust Para Mujer;317009.00;;1;true;https://www.mvurbano.com.ar/productos/campera-fourstroke-wanderlust-para-mujer/;2024-04-11T18:52:06+0000
+150668634;21315;574073664;11163785;Botas Touring Stav Core Protection;173296.00;;1;true;https://www.mvurbano.com.ar/productos/botas-touring-stav-core-protection/;2024-04-11T18:52:06+0000
+156837623;21370;594297508;5664404;Casco LS2 399 Valiant Lumen;482385.00;;1;true;https://www.mvurbano.com.ar/productos/casco-ls2-399-valiant-lumen-ma-glo-bl/;2024-04-11T18:52:06+0000
+156838986;21374;594302854;5664404;Casco LS2 399 Valiant Matt Black;468454.00;;1;true;https://www.mvurbano.com.ar/productos/casco-ls2-399-valiant-matt-black/;2024-04-11T18:52:06+0000
+156922296;47141;594557759;5664404;Casco Mac M67 Zepelin Gloss XS;123983.00;;1;true;https://www.mvurbano.com.ar/productos/casco-mac-m67-zepelin-gloss-bl-rosa-xs/;2024-04-11T18:52:06+0000
+156922361;43212;594558347;5664404;Casco Mac M67 Zepelin Matt;123983.00;;1;true;https://www.mvurbano.com.ar/productos/casco-mac-m67-zepelin-matt-bla-roj/;2024-04-11T18:52:06+0000
+156922489;21378;594558858;5664404;Casco Mac M67 Nirvana Gloss;123983.00;;1;true;https://www.mvurbano.com.ar/productos/casco-mac-m67-nirvana-gloss/;2024-04-11T18:57:02+0000
+156922670;43185;594559445;5664404;Casco Mac M67 Negro Mate;117044.00;;;true;https://www.mvurbano.com.ar/productos/casco-mac-m67-negro-mate/;2024-04-11T18:57:06+0000
+157478726;19846;596597945;;Bicicleta Playera De Paseo Bara Bikes;308038.00;;1;true;https://www.mvurbano.com.ar/productos/bicicleta-playera-de-paseo-bara-bikes/;2024-04-11T18:52:06+0000
+157572141;19810;596873090;;Bicicleta Keirin Freestyle Cromada Bmx R20;217052.00;;1;true;https://www.mvurbano.com.ar/productos/bicicleta-keirin-freestyle-cromada-bmx-r20/;2024-04-11T18:52:06+0000
+174943695;21514;667969741;;Visor De Casco Motovisao Shark S 600 Iridium;53566.00;;2;true;https://www.mvurbano.com.ar/productos/visor-de-casco-motovisao-shark-s-600-iridium/;2024-04-11T18:52:06+0000
+174966223;20893;668058562;11163785;Zapatillas After Moto Fluence;92800.00;;2;true;https://www.mvurbano.com.ar/productos/zapatillas-after-moto-fluence-copia/;2024-04-11T18:52:06+0000
+174970444;43494;668074768;11163785;Bota Alter Joy;89600.00;;1;true;https://www.mvurbano.com.ar/productos/bota-alter-joy/;2024-04-11T18:52:06+0000
+175794048;46300;671887724;;Cubierta Imperial Cord 100-80-18;62701.00;;4;true;https://www.mvurbano.com.ar/productos/cubierta-imperial-cord-100-80-18/;2024-04-11T18:52:06+0000
+175811129;15686;671948714;5653700;Cubremanos De Abrigo Nava 110;7686.00;;8;true;https://www.mvurbano.com.ar/productos/cubremanos-de-abrigo-nava-110/;2024-04-11T18:52:06+0000
+177587745;14247;681902135;5653700;Tacometro Digital Run Leader Hm-032;67385.00;;1;true;https://www.mvurbano.com.ar/productos/tacometro-digital-run-leader-hm-032/;2024-04-11T18:52:06+0000
+177591379;18895;681918182;5653700;Intercomunicador Ejeas V-6 Pro Bluetooth;102947.00;;1;true;https://www.mvurbano.com.ar/productos/intercomunicador-ejeas-v-6-pro-bluetooth/;2024-04-11T18:52:06+0000
+180962979;46276;699214538;5664404;Casco LS2 353 Solid Rapid Negro Mate Talle Xxxl;134115.00;;1;true;https://www.mvurbano.com.ar/productos/casco-ls2-353-solid-rapid-negro-mate-talle-xxxl/;2024-04-11T18:52:06+0000
