@@ -1,8 +1,8 @@
 const fs = require("fs");
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
+const moment = require("moment-timezone");
 
 const csvFilePath = "app/assets/documents/Productos.csv";
-const idCsvFilePath = "app/assets/documents/IDs.csv"; // Nueva ruta para el archivo ID.csv
 
 const csvWriter = createCsvWriter({
   path: csvFilePath,
@@ -19,13 +19,6 @@ const csvWriter = createCsvWriter({
     { id: "canonical_url", title: "CANONICAL_URL" },
     { id: "updated_at", title: "UPDATED_AT" },
   ],
-  fieldDelimiter: ";",
-});
-
-const csvWriterID = createCsvWriter({
-  // datos para IDs.csv
-  path: idCsvFilePath,
-  header: [{ id: "id", title: "ID" }],
   fieldDelimiter: ";",
 });
 
@@ -83,66 +76,20 @@ const getProducts = async (req, res) => {
             categories: (row.categories[0] && row.categories[0].id) || "",
             published: row.published || "",
             canonical_url: row.canonical_url || "",
-            updated_at: row.updated_at || "",
+            updated_at: moment(row.updated_at)
+              .tz("America/Argentina/Buenos_Aires")
+              .format(),
           }));
 
-        let firstLine = "";
         try {
-          const fileData = fs.readFileSync(csvFilePath, "utf8");
-          const lines = fileData.split("\n");
-          if (lines.length > 0) {
-            firstLine = lines[0].trim();
-          }
-        } catch (readError) {
-          console.error("Error al leer el archivo:", readError);
+          await csvWriter.writeRecords(filteredProducts);
+          res.send("Productos guardados exitosamente en Productos.csv");
+        } catch (writeError) {
+          console.error("Error al guardar los productos:", writeError);
+          res
+            .status(500)
+            .send("Error al guardar los productos en Productos.csv");
         }
-
-        fs.truncate(csvFilePath, 0, async (truncateError) => {
-          if (truncateError) {
-            console.error("Error al truncar el archivo:", truncateError);
-            return res
-              .status(500)
-              .send("Error al truncar el archivo Productos.csv");
-          }
-
-          if (firstLine) {
-            try {
-              await fs.promises.appendFile(csvFilePath, firstLine + "\n");
-            } catch (appendError) {
-              console.error("Error al escribir la primera línea:", appendError);
-              return res
-                .status(500)
-                .send("Error al escribir la primera línea en Productos.csv");
-            }
-          }
-
-          try {
-            await csvWriter.writeRecords(filteredProducts, { append: true });
-
-            // Ahora guardamos los IDs en el archivo ID.csv
-            const idRecords = filteredProducts.map((product) => ({
-              id: product.id,
-              variant_id: product.variant_id,
-              sku: product.sku,
-              price: product.price,
-              promotional_price: product.promotional_price,
-              stock: product.stock,
-              updated_at: product.updated_at,
-            }));
-
-            if (idRecords.length > 0) {
-              // Verificar si hay registros antes de escribir
-              await csvWriterID.writeRecords(idRecords);
-            }
-
-            res.send("Productos guardados exitosamente en Productos.csv");
-          } catch (writeError) {
-            console.error("Error al guardar los productos:", writeError);
-            res
-              .status(500)
-              .send("Error al guardar los productos en Productos.csv");
-          }
-        });
       }
     } catch (error) {
       console.error("Error al obtener los productos:", error);

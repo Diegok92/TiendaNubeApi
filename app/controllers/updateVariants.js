@@ -46,6 +46,7 @@ const updateVariants = async (req, res) => {
       if (variant) {
         productsToUpdate.push({
           PRODUCT_ID: variant.PRODUCT_ID,
+          SKU: variant.SKU,
           VARIANT_ID: variant.VARIANT_ID,
           PRICE: newProduct.PRICE,
           PROMOTIONAL_PRICE: newProduct.PROMOTIONAL_PRICE,
@@ -131,15 +132,19 @@ const updateVariants = async (req, res) => {
     console.log(`Tiempo de lectura del archivo CSV: ${csvElapsedTime} ms`);
 
     // Eliminar el contenido del archivo actualizarInfoCompleta.csv
-    fs.writeFile("actualizarInfoCompleta.csv", "", (error) => {
-      if (error) {
-        console.error("Error al eliminar el contenido del archivo:", error);
-      } else {
-        console.log(
-          "El contenido del archivo actualizarInfoCompleta.csv se ha eliminado correctamente."
-        );
+    fs.writeFile(
+      "app/assets/documents/actualizarInfoCompleta.csv",
+      "",
+      (error) => {
+        if (error) {
+          console.error("Error al eliminar el contenido del archivo:", error);
+        } else {
+          console.log(
+            "El contenido del archivo actualizarInfoCompleta.csv se ha eliminado correctamente."
+          );
+        }
       }
-    });
+    );
 
     res.status(200).json({ message: "Productos actualizados correctamente." });
   } catch (error) {

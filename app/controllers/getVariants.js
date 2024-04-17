@@ -2,7 +2,7 @@ const fs = require("fs");
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 const moment = require("moment-timezone");
 
-const idCsvFilePath = "app/assets/documents/IDs.csv";
+const productosCsvFilePath = "app/assets/documents/Productos.csv";
 const variantsCsvFilePath = "app/assets/documents/variants.csv";
 
 const csvWriter = createCsvWriter({
@@ -11,9 +11,12 @@ const csvWriter = createCsvWriter({
     { id: "product_id", title: "PRODUCT_ID" },
     { id: "sku", title: "SKU" },
     { id: "variant_id", title: "VARIANT_ID" },
+    { id: "categories", title: "CATEGORIES" },
+    { id: "name", title: "NAME" },
     { id: "price", title: "PRICE" },
     { id: "promotional_price", title: "PROMOTIONAL_PRICE" },
     { id: "stock", title: "STOCK" },
+    { id: "values", title: "VALUES" },
     { id: "updated_at", title: "UPDATED_AT" },
   ],
   fieldDelimiter: ";",
@@ -25,14 +28,18 @@ const getVariants = async (req, res) => {
   const startTime = Date.now();
 
   try {
-    const idData = fs.readFileSync(idCsvFilePath, "utf8").split("\n");
-    idData.shift(); // Omitir la primera línea
-    const ids = idData.map((line) => line.trim()).filter((id) => id); // Filtrar IDs vacíos
+    fs.truncateSync(variantsCsvFilePath);
+    const productosData = fs
+      .readFileSync(productosCsvFilePath, "utf8")
+      .split("\n");
+    productosData.shift(); // Omitir la primera línea
+    const productos = productosData.map((line) => line.trim().split(";"));
 
-    const requestsPerSecond = 2; // Número máximo de solicitudes por segundo
-    const waitTimeBetweenRequests = 1000 / requestsPerSecond; // Tiempo de espera entre solicitudes en milisegundos
+    const requestsPerSecond = 2;
+    const waitTimeBetweenRequests = 1000 / requestsPerSecond;
 
-    for (const id of ids) {
+    for (const producto of productos) {
+      const id = producto[0];
       const endpoint = `https://api.tiendanube.com/v1/${user_id}/products/${id}/variants`;
       const response = await fetch(endpoint, {
         method: "GET",
@@ -51,29 +58,36 @@ const getVariants = async (req, res) => {
 
       const variants = await response.json();
 
-      const variantRecords = variants.map((variant) => ({
-        product_id: variant.product_id,
-        sku: variant.sku,
-        variant_id: variant.id,
-        price: variant.price,
-        promotional_price: variant.promotional_price,
-        stock: variant.stock,
-        updated_at: moment(variant.updated_at)
-          .tz("America/Argentina/Buenos_Aires")
-          .format("YYYY-MM-DDTHH:mm:ss"),
-      }));
+      for (const variant of variants) {
+        const sku = variant.sku;
+        const variantRecords = {
+          product_id: id,
+          sku: sku,
+          variant_id: variant.id,
+          categories: producto[3], // Asumiendo que las categorías están en la cuarta columna de Productos.csv
+          name: producto[4], // Asumiendo que el nombre está en la quinta columna de Productos.csv
+          price: variant.price,
+          promotional_price: variant.promotional_price,
+          stock: variant.stock,
+          values: variant.values.map((value) => value.es).join(", "),
+          updated_at: moment(variant.updated_at)
+            .tz("America/Argentina/Buenos_Aires")
+            .format("YYYY-MM-DDTHH:mm:ss"),
+        };
 
-      await csvWriter.writeRecords(variantRecords, { append: true });
+        await csvWriter.writeRecords([variantRecords], { append: true });
 
-      console.log(`Variantes del producto ${id} guardadas exitosamente.`);
+        console.log(
+          `Variante ${variant.id} del producto ${id} guardada exitosamente.`
+        );
+      }
 
-      // Espera entre solicitudes para cumplir con el límite de velocidad
       await new Promise((resolve) =>
         setTimeout(resolve, waitTimeBetweenRequests)
       );
     }
     const endTime = Date.now();
-    const elapsedTime = (endTime - startTime) / (1000 * 60); // Tiempo transcurrido en minutos
+    const elapsedTime = (endTime - startTime) / (1000 * 60);
     console.log(
       `Proceso completado. Tiempo transcurrido: ${elapsedTime.toFixed(
         2
