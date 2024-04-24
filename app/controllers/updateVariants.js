@@ -40,6 +40,7 @@ const updateVariants = async (req, res) => {
       "app/assets/documents/nuevosProductos.csv"
     );
     const productsToUpdate = [];
+    const newProductsToUpload = [];
 
     for (const newProduct of newProducts) {
       const variant = variantsMap[newProduct.SKU];
@@ -52,7 +53,24 @@ const updateVariants = async (req, res) => {
           PROMOTIONAL_PRICE: newProduct.PROMOTIONAL_PRICE,
           STOCK: newProduct.STOCK,
         });
+        // Eliminar la variante del mapa, ya que se ha encontrado en nuevosProductos.csv
+        delete variantsMap[newProduct.SKU];
+      } else {
+        newProductsToUpload.push(newProduct);
       }
+    }
+
+    // Procesar las variantes restantes en variants.csv y establecer su stock en 0
+    for (const sku in variantsMap) {
+      const variant = variantsMap[sku];
+      productsToUpdate.push({
+        PRODUCT_ID: variant.PRODUCT_ID,
+        SKU: variant.SKU,
+        VARIANT_ID: variant.VARIANT_ID,
+        PRICE: variant.PRICE,
+        PROMOTIONAL_PRICE: variant.PROMOTIONAL_PRICE,
+        STOCK: 0, // Establecer el stock en 0 para los productos que ya no están en el almacén
+      });
     }
 
     // Escribir los productos para actualizar en un nuevo archivo CSV
@@ -71,7 +89,21 @@ const updateVariants = async (req, res) => {
 
     await csvWriter.writeRecords(productsToUpdate);
 
-    // Una vez que se ha escrito el archivo actualizarInfoCompleta.csv, procedemos a actualizar los productos
+    // Escribir los nuevos productos para subir en un archivo CSV separado
+    const uploadCsvWriter = createObjectCsvWriter({
+      path: "app/assets/documents/productosParaSubir.csv",
+      header: [
+        { id: "SKU", title: "SKU" },
+        { id: "PRICE", title: "PRICE" },
+        { id: "PROMOTIONAL_PRICE", title: "PROMOTIONAL_PRICE" },
+        { id: "STOCK", title: "STOCK" },
+      ],
+      fieldDelimiter: ";",
+    });
+
+    await uploadCsvWriter.writeRecords(newProductsToUpload);
+
+    // Actualizar los productos existentes en la tienda
     const productsToUpdateData = await readCsvFile(
       "app/assets/documents/actualizarInfoCompleta.csv"
     );
@@ -79,7 +111,7 @@ const updateVariants = async (req, res) => {
     const csvStartTime = new Date();
     const requestStartTime = performance.now();
 
-    // Procesar cada producto para actualizar
+    // Procesar cada producto para actualizar en la tienda
     for (const productToUpdate of productsToUpdateData) {
       const productId = productToUpdate.PRODUCT_ID;
       const variantId = productToUpdate.VARIANT_ID;

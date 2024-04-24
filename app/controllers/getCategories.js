@@ -30,7 +30,7 @@ const getCategories = (req, res) => {
       // Verifica si data es un array
       if (Array.isArray(data)) {
         const categories = data.map((category) => ({
-          id: category.id,
+          category_id: category.id,
           name: category.name.es, // Ajusta el idioma según corresponda
           parent_id: category.parent,
           subcategories: category.subcategories.join(","),
@@ -40,11 +40,12 @@ const getCategories = (req, res) => {
         const csvWriter = createCsvWriter({
           path: "app/assets/documents/categorias.csv",
           header: [
-            { id: "id", title: "ID" },
-            { id: "name", title: "Nombre" },
-            { id: "parent_id", title: "ID del padre" },
-            { id: "subcategories", title: "Subcategorías" },
+            { id: "category_id", title: "CATEGORY_ID" },
+            { id: "name", title: "NAME" },
+            { id: "parent_id", title: "PARENT_ID" },
+            { id: "subcategories", title: "SUBCATEGORIES" },
           ],
+          fieldDelimiter: ";",
         });
 
         // Escribe los datos en el archivo CSV
