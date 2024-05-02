@@ -1,7 +1,7 @@
 const fs = require("fs");
 const csv = require("csv-parser");
 
-const postProducts = (req, res) => {
+const EXXIT_PostProducts = (req, res) => {
   const access_token = req.query.access_token;
   const user_id = req.query.user_id;
   const products = [];
@@ -11,7 +11,7 @@ const postProducts = (req, res) => {
   // Tiempo de inicio para la lectura del archivo CSV
   csvStartTime = new Date();
 
-  fs.createReadStream("app/assets/documents/productosParaSubir.csv")
+  fs.createReadStream("app/assets/documents/EXXIT_ProductosParaSubir.csv")
     .pipe(csv({ separator: ";" }))
     .on("data", (data) => {
       if (
@@ -20,9 +20,8 @@ const postProducts = (req, res) => {
         data.PRICE &&
         data.PROMOTIONAL_PRICE &&
         data.STOCK &&
-        data.CATEGORIES /* &&
+        data.CATEGORIES &&
         data.DESCRIPTION
-        */
       ) {
         const categories = data.CATEGORIES.split(",").map((category) =>
           parseInt(category.trim())
@@ -34,7 +33,7 @@ const postProducts = (req, res) => {
           price: parseFloat(data.PRICE),
           promotional_price: parseFloat(data.PROMOTIONAL_PRICE),
           stock: parseInt(data.STOCK),
-          // description: data.DESCRIPTION,
+          description: data.DESCRIPTION,
           categories: categories,
         });
       }
@@ -73,7 +72,7 @@ function postProductsRecursive(
   if (index < products.length) {
     const body = {
       name: { es: products[index].name },
-      // description: { es: products[index].description },
+      description: { es: products[index].description },
       categories: products[index].categories,
       variants: [
         {
@@ -134,7 +133,7 @@ function postProductsRecursive(
 
     // Borra el contenido del archivo a partir de la segunda línea
     fs.readFile(
-      "app/assets/documents/productosParaSubir.csv",
+      "app/assets/documents/EXXIT_ProductosParaSubir.csv",
       "utf8",
       (err, data) => {
         if (err) {
@@ -145,7 +144,7 @@ function postProductsRecursive(
         const lines = data.split("\n");
         const header = lines[0];
         fs.writeFile(
-          "app/assets/documents/productosParaSubir.csv",
+          "app/assets/documents/EXXIT_ProductosParaSubir.csv",
           header,
           (err) => {
             if (err) {
@@ -160,8 +159,8 @@ function postProductsRecursive(
       }
     );
 
-    res.send("Fin carga de productos de productosParaSubir.csv");
+    res.send("Fin carga de productos de EXXIT_ProductosParaSubir.csv");
   }
 }
 
-module.exports = { postProducts };
+module.exports = { EXXIT_PostProducts };
