@@ -20,9 +20,9 @@ const postProducts = (req, res) => {
         data.PRICE &&
         data.PROMOTIONAL_PRICE &&
         data.STOCK &&
-        data.CATEGORIES /* &&
-        data.DESCRIPTION
-        */
+        data.CATEGORIES &&
+        data.DESCRIPTION &&
+        data.IMAGE
       ) {
         const categories = data.CATEGORIES.split(",").map((category) =>
           parseInt(category.trim())
@@ -34,7 +34,8 @@ const postProducts = (req, res) => {
           price: parseFloat(data.PRICE),
           promotional_price: parseFloat(data.PROMOTIONAL_PRICE),
           stock: parseInt(data.STOCK),
-          // description: data.DESCRIPTION,
+          description: data.DESCRIPTION,
+          image: data.IMAGE,
           categories: categories,
         });
       }
@@ -71,9 +72,15 @@ function postProductsRecursive(
   productsStartTime
 ) {
   if (index < products.length) {
+    console.log(
+      `Subiendo producto ${index + 1} de ${products.length}: ${
+        products[index].name
+      }`
+    );
+
     const body = {
       name: { es: products[index].name },
-      // description: { es: products[index].description },
+      description: { es: products[index].description },
       categories: products[index].categories,
       variants: [
         {
@@ -81,6 +88,11 @@ function postProductsRecursive(
           promotional_price: products[index].promotional_price,
           stock: products[index].stock,
           sku: products[index].sku,
+        },
+      ],
+      images: [
+        {
+          src: products[index].image,
         },
       ],
     };
@@ -104,9 +116,8 @@ function postProductsRecursive(
           );
           return response.text().then((text) => {
             console.error("Detalles del error:", text);
-            throw new Error(
-              `Error en la solicitud: ${response.status} - ${response.statusText}`
-            );
+            // Guardar el producto con error en un archivo
+            saveErrorProduct(products[index]);
           });
         }
         return response.json();
@@ -162,6 +173,26 @@ function postProductsRecursive(
 
     res.send("Fin carga de productos de productosParaSubir.csv");
   }
+}
+
+function saveErrorProduct(product) {
+  const productData = `${product.sku};${product.name};${product.price};${
+    product.promotional_price
+  };${product.stock};${product.categories.join(",")};${product.description};${
+    product.image
+  }\n`;
+
+  fs.appendFile(
+    "app/assets/documents/revisarParaSubir.txt",
+    productData,
+    (err) => {
+      if (err) {
+        console.error("Error al guardar el producto con error:", err);
+      } else {
+        console.log("Producto con error guardado en revisarParaSubir.txt");
+      }
+    }
+  );
 }
 
 module.exports = { postProducts };
