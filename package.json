@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon app.js"
   },
-  "author": "Movimiento Nativo",
+  "author": "Diego Kleiman",
   "license": "ISC",
   "dependencies": {
     "csv-parser": "^3.0.0",
