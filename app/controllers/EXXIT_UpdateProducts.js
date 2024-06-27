@@ -160,6 +160,11 @@ const EXXIT_UpdateProducts = async (req, res) => {
     console.log(
       `Tiempo total de actualización de productos: ${requestElapsedTime} ms`
     );
+    console.log(
+      `Tiempo total de actualización de productos: ${
+        requestElapsedTime / 60000
+      } minutos`
+    );
 
     const csvEndTime = new Date();
     const csvElapsedTime = csvEndTime - csvStartTime;

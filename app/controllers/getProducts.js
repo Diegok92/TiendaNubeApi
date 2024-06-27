@@ -17,6 +17,7 @@ const csvWriter = createCsvWriter({
     { id: "stock", title: "STOCK" },
     { id: "published", title: "PUBLISHED" },
     { id: "canonical_url", title: "CANONICAL_URL" },
+    { id: "image_urls", title: "IMAGE_URLS" }, // Add a new column for image URLs
     { id: "updated_at", title: "UPDATED_AT" },
   ],
   fieldDelimiter: ";",
@@ -65,21 +66,27 @@ const getProducts = async (req, res) => {
               row.categories &&
               row.categories.length >= 0
           )
-          .map((row) => ({
-            id: row.id || "",
-            sku: row.variants[0].sku || "",
-            variant_id: row.variants[0].id || "",
-            name: (row.name && row.name.es) || "",
-            price: row.variants[0].price || "",
-            promotional_price: row.variants[0].promotional_price || "",
-            stock: row.variants[0].stock || "",
-            categories: (row.categories[0] && row.categories[0].id) || "",
-            published: row.published || "",
-            canonical_url: row.canonical_url || "",
-            updated_at: moment(row.updated_at)
-              .tz("America/Argentina/Buenos_Aires")
-              .format(),
-          }));
+          .map((row) => {
+            // Process images to extract URLs
+            const imageUrls = row.images.map((image) => image.src);
+
+            return {
+              id: row.id || "",
+              sku: row.variants[0].sku || "",
+              variant_id: row.variants[0].id || "",
+              name: (row.name && row.name.es) || "",
+              price: row.variants[0].price || "",
+              promotional_price: row.variants[0].promotional_price || "",
+              stock: row.variants[0].stock || "",
+              categories: (row.categories[0] && row.categories[0].id) || "",
+              published: row.published || "",
+              canonical_url: row.canonical_url || "",
+              image_urls: imageUrls.join(";"), // Join image URLs with a delimiter
+              updated_at: moment(row.updated_at)
+                .tz("America/Argentina/Buenos_Aires")
+                .format(),
+            };
+          });
 
         try {
           await csvWriter.writeRecords(filteredProducts);
